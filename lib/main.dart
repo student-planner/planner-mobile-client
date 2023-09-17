@@ -15,6 +15,8 @@ import 'core/constants/routes_constants.dart';
 import 'core/helpers/message_helper.dart';
 import 'core/splash_screen.dart';
 import 'core/helpers/module_configurator.dart';
+import 'src/welcome/auth/auth_bloc.dart';
+import 'src/welcome/auth/auth_scope.dart';
 import 'theme/dark_theme.dart';
 import 'theme/light_theme.dart';
 
@@ -59,22 +61,30 @@ class AppConfigurator extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
         DefaultMaterialLocalizations.delegate,
       ],
-      child: AdaptiveTheme(
-        light: lightThemeData,
-        dark: darkThemeData,
-        initial: savedTheme ?? AdaptiveThemeMode.light,
-        builder: (light, dark) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            scaffoldMessengerKey: MessageHelper.rootScaffoldMessengerKey,
-            title: 'Mobile app',
-            navigatorKey: NavigationService.navigationKey,
-            onGenerateRoute: AppRoutes.generateRoute,
-            theme: light,
-            darkTheme: dark,
-            home: const AppRunner(),
-          );
-        },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<IAuthBloc>(
+            create: (context) => injector.get<IAuthBloc>(),
+          ),
+        ],
+        child: AdaptiveTheme(
+          light: lightThemeData,
+          dark: darkThemeData,
+          //initial: savedTheme ?? AdaptiveThemeMode.light,
+          initial: AdaptiveThemeMode.dark,
+          builder: (light, dark) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              scaffoldMessengerKey: MessageHelper.rootScaffoldMessengerKey,
+              title: 'Mobile app',
+              navigatorKey: NavigationService.navigationKey,
+              onGenerateRoute: AppRoutes.generateRoute,
+              theme: light,
+              darkTheme: dark,
+              home: const AppRunner(),
+            );
+          },
+        ),
       ),
     );
   }
@@ -91,6 +101,7 @@ class AppRunner extends StatefulWidget {
 class _AppRunnerState extends State<AppRunner> {
   @override
   void initState() {
+    AuthScope.start(context);
     super.initState();
   }
 
@@ -98,7 +109,19 @@ class _AppRunnerState extends State<AppRunner> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: globalScaffoldKey,
-      body: const SplashScreen(),
+      body: BlocListener<IAuthBloc, AuthState>(
+        bloc: AuthScope.of(context),
+        listener: (context, state) => state.maybeMap(
+          unauthenticated: (_) => navService.pushNamedAndRemoveUntil(
+            AppRoutes.login,
+          ),
+          authenticated: (state) => navService.pushNamedAndRemoveUntil(
+            AppRoutes.goals,
+          ),
+          orElse: () => const SplashScreen(),
+        ),
+        child: const SplashScreen(),
+      ),
     );
   }
 }
