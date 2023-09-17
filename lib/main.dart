@@ -17,31 +17,26 @@ import 'core/splash_screen.dart';
 import 'core/helpers/module_configurator.dart';
 import 'src/welcome/auth/auth_bloc.dart';
 import 'src/welcome/auth/auth_scope.dart';
+import 'src/welcome/login/bloc/login_bloc.dart';
 import 'theme/dark_theme.dart';
-import 'theme/light_theme.dart';
 
 Future<void> main() async {
-  await runZonedGuarded(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-      await dotenv.load(fileName: '.env');
+  await dotenv.load(fileName: '.env');
 
-      ModuleConfigurator.init();
+  ModuleConfigurator.init();
 
-      await initializeDateFormatting('ru_RU', null);
-      Bloc.observer = BlocGlobalObserver();
-      Bloc.transformer = bloc_concurrency.sequential();
+  await initializeDateFormatting('ru_RU', null);
+  Bloc.observer = BlocGlobalObserver();
+  Bloc.transformer = bloc_concurrency.sequential();
 
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-      ]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
-      final savedTheme = await AdaptiveTheme.getThemeMode();
-      runApp(AppConfigurator(savedTheme: savedTheme));
-    },
-    (error, stackTrace) async {},
-  );
+  final savedTheme = await AdaptiveTheme.getThemeMode();
+  runApp(AppConfigurator(savedTheme: savedTheme));
 }
 
 /// Конфигурация приложения
@@ -66,9 +61,12 @@ class AppConfigurator extends StatelessWidget {
           BlocProvider<IAuthBloc>(
             create: (context) => injector.get<IAuthBloc>(),
           ),
+          BlocProvider<ILoginBloc>(
+            create: (context) => injector.get<ILoginBloc>(),
+          ),
         ],
         child: AdaptiveTheme(
-          light: lightThemeData,
+          light: darkThemeData,
           dark: darkThemeData,
           //initial: savedTheme ?? AdaptiveThemeMode.light,
           initial: AdaptiveThemeMode.dark,

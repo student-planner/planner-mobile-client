@@ -11,6 +11,7 @@ dependencies:
   bloc_concurrency: ^0.2.2
   collection: ^1.17.2
   cupertino_icons: ^1.0.2
+  device_info_plus: ^9.0.3
   dio: ^5.3.2
   flutter:
     sdk: flutter
@@ -45,7 +46,7 @@ flutter:
     - .env
     - assets/
     - assets/icons/
-    - assets/fonts
+    - assets/fonts/
 
   fonts:
     - family: "SFProDisplay"

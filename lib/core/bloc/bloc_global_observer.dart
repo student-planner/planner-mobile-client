@@ -1,10 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../extension/formatted_message.dart';
-import '../helpers/dio_helper.dart';
-import '../helpers/my_logger.dart';
-
 /// Глобальный обработчик действий блока
 class BlocGlobalObserver extends BlocObserver {
   @override
@@ -31,18 +27,7 @@ class BlocGlobalObserver extends BlocObserver {
     Object error,
     StackTrace stackTrace,
   ) async {
-    MyLogger.e('${bloc.runtimeType} $error $stackTrace');
-    try {
-      await DioHelper.postData(
-        url: '/error',
-        data: {
-          "text": error,
-          "stackTrace": stackTrace,
-        },
-      ).whenComplete(() => debugPrint('Информация об ошибке была отправлена'));
-    } on Exception catch (e) {
-      MyLogger.e('DioHelper.postData -> ${e.getMessage}');
-    }
+    debugPrint('${bloc.runtimeType} $error $stackTrace');
     super.onError(bloc, error, stackTrace);
   }
 }

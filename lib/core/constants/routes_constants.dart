@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../../src/goals/goals_page.dart';
 import '../../src/welcome/login/login_page.dart';
+import '../../src/welcome/login/screens/login_code_screen.dart';
 import '../extension/formatted_message.dart';
 import '../helpers/message_helper.dart';
 import '../splash_screen.dart';
@@ -12,7 +13,8 @@ abstract class AppRoutes {
   static const String start = '/';
   static const String loading = '/loading';
   static const String goals = '/goals';
-  static const String login = '/login';
+  static const String login = '/login/email';
+  static const String loginCode = '/login/code';
   static const String register = '/register';
 
   /// Сгенерировать роут
@@ -25,6 +27,11 @@ abstract class AppRoutes {
           return MaterialPageRoute(builder: (_) => const SplashScreen());
         case login:
           return MaterialPageRoute(builder: (_) => const LoginPage());
+        case loginCode:
+          final ticketId = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => LoginCodeScreen(ticketId: ticketId),
+          );
         case goals:
           return MaterialPageRoute(builder: (_) => const GoalsPage());
         default:
