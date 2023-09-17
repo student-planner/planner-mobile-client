@@ -14,7 +14,7 @@ import 'core/constants/constants.dart';
 import 'core/constants/routes_constants.dart';
 import 'core/helpers/message_helper.dart';
 import 'core/splash_screen.dart';
-import 'src/configurations/module_configurator.dart';
+import 'core/helpers/module_configurator.dart';
 import 'theme/dark_theme.dart';
 import 'theme/light_theme.dart';
 
