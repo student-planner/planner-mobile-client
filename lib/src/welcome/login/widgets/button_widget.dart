@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/button/thesis_button.dart';
 
+/// Кнопка
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget({
     super.key,
