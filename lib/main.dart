@@ -15,8 +15,8 @@ import 'core/constants/routes_constants.dart';
 import 'core/helpers/message_helper.dart';
 import 'core/splash_screen.dart';
 import 'core/helpers/module_configurator.dart';
-import 'src/welcome/auth/auth_bloc.dart';
-import 'src/welcome/auth/auth_scope.dart';
+import 'src/welcome/auth/bloc/auth_bloc.dart';
+import 'src/welcome/auth/bloc/auth_scope.dart';
 import 'src/welcome/login/bloc/login_bloc.dart';
 import 'theme/dark_theme.dart';
 

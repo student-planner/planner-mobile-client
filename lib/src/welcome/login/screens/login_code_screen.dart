@@ -11,6 +11,7 @@ import '../contracts/ticket_dto/ticket_dto.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/title_widget.dart';
 
+/// Страница ввода кода
 class LoginCodeScreen extends StatelessWidget {
   const LoginCodeScreen({
     super.key,

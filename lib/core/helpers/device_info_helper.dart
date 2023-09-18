@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
+/// Класс для получения информации об устройстве
 class DeviceInfoHelper {
+  /// Получить информацию об устройстве
   static Future<Map<String, dynamic>> get() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     var deviceData = <String, dynamic>{};

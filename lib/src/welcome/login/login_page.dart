@@ -8,6 +8,7 @@ import '../../../core/splash_screen.dart';
 import 'bloc/login_bloc.dart';
 import 'screens/login_email_screen.dart';
 
+/// Страница входа в приложение
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 

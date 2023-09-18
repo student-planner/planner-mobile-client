@@ -3,14 +3,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/constants/routes_constants.dart';
-import '../../../core/extension/formatted_message.dart';
-import '../../../core/helpers/my_logger.dart';
-import '../../../core/repositories/tokens/tokens_repository.dart';
-import 'repositories/auth_repository.dart';
+import '../../../../core/constants/routes_constants.dart';
+import '../../../../core/extension/formatted_message.dart';
+import '../../../../core/helpers/my_logger.dart';
+import '../../../../core/repositories/tokens/tokens_repository.dart';
+import '../repositories/auth_repository.dart';
 
 part 'auth_bloc.freezed.dart';
 
+/// Интерфейс блока авторизации
 abstract class IAuthBloc extends Bloc<AuthEvent, AuthState> {
   IAuthBloc(super.initialState);
 }

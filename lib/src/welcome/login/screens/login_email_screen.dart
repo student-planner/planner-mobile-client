@@ -11,6 +11,7 @@ import '../contracts/login_start_dto/login_start_dto.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/title_widget.dart';
 
+/// Страница ввода email
 class LoginEmailScreen extends StatelessWidget {
   const LoginEmailScreen({super.key});
 

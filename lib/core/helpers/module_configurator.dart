@@ -1,6 +1,6 @@
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import '../../src/welcome/auth/auth_bloc.dart';
+import '../../src/welcome/auth/bloc/auth_bloc.dart';
 import '../../src/welcome/auth/repositories/auth_repository.dart';
 import '../../src/welcome/auth/repositories/auth_repository_impl.dart';
 import '../../src/welcome/login/bloc/login_bloc.dart';

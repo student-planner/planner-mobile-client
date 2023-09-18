@@ -3,8 +3,9 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../theme/theme_extention.dart';
-import '../welcome/auth/auth_scope.dart';
+import '../welcome/auth/bloc/auth_scope.dart';
 
+/// Страница с задачами пользователя
 class GoalsPage extends StatelessWidget {
   const GoalsPage({super.key});
 

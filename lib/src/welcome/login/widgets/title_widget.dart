@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/theme_extention.dart';
 
+/// Виджет заголовка
 class TitleWidget extends StatelessWidget {
   const TitleWidget({
     super.key,

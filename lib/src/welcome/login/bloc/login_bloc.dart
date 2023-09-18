@@ -10,6 +10,7 @@ import '../repositories/login_repository.dart';
 
 part 'login_bloc.freezed.dart';
 
+/// Интерфейс блока логина
 abstract class ILoginBloc extends Bloc<LoginEvent, LoginState> {
   ILoginBloc(super.initialState);
 }
