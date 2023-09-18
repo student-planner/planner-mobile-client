@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../../src/goals/goals_page.dart';
+import '../../src/welcome/login/contracts/ticket_dto/ticket_dto.dart';
 import '../../src/welcome/login/login_page.dart';
 import '../../src/welcome/login/screens/login_code_screen.dart';
 import '../extension/formatted_message.dart';
@@ -15,7 +16,6 @@ abstract class AppRoutes {
   static const String goals = '/goals';
   static const String login = '/login/email';
   static const String loginCode = '/login/code';
-  static const String register = '/register';
 
   /// Сгенерировать роут
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -28,9 +28,9 @@ abstract class AppRoutes {
         case login:
           return MaterialPageRoute(builder: (_) => const LoginPage());
         case loginCode:
-          final ticketId = settings.arguments as String;
+          final ticketDto = settings.arguments as TicketDto;
           return MaterialPageRoute(
-            builder: (_) => LoginCodeScreen(ticketId: ticketId),
+            builder: (_) => LoginCodeScreen(ticketDto: ticketDto),
           );
         case goals:
           return MaterialPageRoute(builder: (_) => const GoalsPage());

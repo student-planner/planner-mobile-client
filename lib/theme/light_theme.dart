@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'theme_colors.dart';
+import 'theme_constants.dart';
 
 const _navigationBarStyle = TextStyle(
   fontSize: 12,
@@ -114,9 +115,7 @@ final lightThemeData = ThemeData(
     elevation: 0,
     showUnselectedLabels: true,
     selectedLabelStyle: _navigationBarStyle.copyWith(color: kPrimaryLightColor),
-    unselectedLabelStyle: _navigationBarStyle.copyWith(
-      color: kLightTextPrimaryColor,
-    ),
+    unselectedLabelStyle: _navigationBarStyle.copyWith(color: kGray1Color),
     type: BottomNavigationBarType.fixed,
     backgroundColor: kLightBackgroundColor,
     selectedItemColor: kPrimaryLightColor,
@@ -159,39 +158,39 @@ final lightThemeData = ThemeData(
       fontWeight: FontWeight.w400,
       color: kLightTextSecondaryColor.withOpacity(0.5),
     ),
-    errorBorder: UnderlineInputBorder(
+    errorBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kRedColor.withOpacity(0.5),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(1),
+      borderRadius: kBorderRadius,
     ),
-    focusedErrorBorder: UnderlineInputBorder(
+    focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kRedColor.withOpacity(0.5),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(1),
+      borderRadius: kBorderRadius,
     ),
-    enabledBorder: UnderlineInputBorder(
+    enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kLightTextSecondaryColor.withOpacity(0.25),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(1),
+      borderRadius: kBorderRadius,
     ),
-    focusedBorder: UnderlineInputBorder(
+    focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kPrimaryColor.withOpacity(0.25),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(1),
+      borderRadius: kBorderRadius,
     ),
   ),
   snackBarTheme: SnackBarThemeData(
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(1),
+      borderRadius: kBorderRadius,
     ),
     backgroundColor: kLightBackgroundSecondaryColor,
     contentTextStyle: const TextStyle(

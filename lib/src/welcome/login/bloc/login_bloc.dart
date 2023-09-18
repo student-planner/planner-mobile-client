@@ -5,6 +5,7 @@ import '../../../../core/extension/formatted_message.dart';
 import '../../../../core/repositories/tokens/tokens_repository.dart';
 import '../contracts/login_complete_dto/login_complete_dto.dart';
 import '../contracts/login_start_dto/login_start_dto.dart';
+import '../contracts/ticket_dto/ticket_dto.dart';
 import '../repositories/login_repository.dart';
 
 part 'login_bloc.freezed.dart';
@@ -39,7 +40,7 @@ class LoginBloc extends ILoginBloc {
   ) async {
     try {
       final ticketDto = await _loginRepository.requestCode(event.startDto);
-      emit(LoginState.successRequestCode(ticketId: ticketDto.ticketId));
+      emit(LoginState.successRequestCode(ticketDto: ticketDto));
     } on Exception catch (e) {
       emit(LoginState.error(message: e.getMessage));
       rethrow;
@@ -86,7 +87,7 @@ abstract class LoginState with _$LoginState {
 
   /// Состояние удачного запроса кода
   const factory LoginState.successRequestCode({
-    required String ticketId,
+    required TicketDto ticketDto,
   }) = _LoginSuccessRequestCodeState;
 
   /// Состояние удачной верификации кода

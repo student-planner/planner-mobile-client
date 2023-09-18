@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
         error: (state) => MessageHelper.showError(state.message),
         successRequestCode: (state) => navService.pushNamed(
           AppRoutes.loginCode,
-          args: state.ticketId,
+          args: state.ticketDto,
         ),
         successVerifyCode: (state) => navService.pushNamedAndRemoveUntil(
           AppRoutes.goals,

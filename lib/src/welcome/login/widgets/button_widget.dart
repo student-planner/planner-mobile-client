@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/widgets/button/thesis_button.dart';
+import '../../../../core/widgets/button/thesis_button.dart';
 
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget({

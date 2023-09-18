@@ -9,6 +9,7 @@ part 'ticket_dto.g.dart';
 class TicketDto with _$TicketDto {
   const factory TicketDto({
     required String ticketId,
+    required bool isNewUser,
   }) = _TicketDto;
 
   factory TicketDto.fromJson(Map<String, dynamic> json) =>

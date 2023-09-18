@@ -68,7 +68,7 @@ class AppConfigurator extends StatelessWidget {
         child: AdaptiveTheme(
           light: darkThemeData,
           dark: darkThemeData,
-          //initial: savedTheme ?? AdaptiveThemeMode.light,
+          //initial: savedTheme ?? AdaptiveThemeMode.dark,
           initial: AdaptiveThemeMode.dark,
           builder: (light, dark) {
             return MaterialApp(

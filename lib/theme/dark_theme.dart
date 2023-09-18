@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'theme_colors.dart';
+import 'theme_constants.dart';
 
 const _navigationBarStyle = TextStyle(
   fontSize: 12,
@@ -14,13 +15,21 @@ final darkThemeData = ThemeData(
   scaffoldBackgroundColor: kDarkBackgroundColor,
   fontFamily: "SFProDisplay",
   appBarTheme: const AppBarTheme(
+    iconTheme: IconThemeData(
+      color: kLightTextPrimaryColor,
+    ),
     backgroundColor: kDarkBackgroundColor,
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: kDarkTextPrimaryColor,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: kPrimaryColor,
+    foregroundColor: kLightBackgroundColor,
   ),
   textTheme: TextTheme(
     displayLarge: const TextStyle(
@@ -124,6 +133,12 @@ final darkThemeData = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     errorMaxLines: 4,
+    floatingLabelStyle: const TextStyle(
+      fontSize: 18,
+      letterSpacing: 0.15,
+      fontWeight: FontWeight.w400,
+      color: kLightTextPrimaryColor,
+    ),
     labelStyle: const TextStyle(
       fontSize: 16,
       letterSpacing: 0.15,
@@ -147,34 +162,34 @@ final darkThemeData = ThemeData(
         color: kRedColor.withOpacity(0.5),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: kBorderRadius,
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kRedColor.withOpacity(0.5),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: kBorderRadius,
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
         color: kDarkTextSecondaryColor.withOpacity(0.25),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: kBorderRadius,
     ),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: kDarkTextSecondaryColor.withOpacity(0.25),
+        color: kPrimaryColor.withOpacity(0.25),
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: kBorderRadius,
     ),
   ),
   snackBarTheme: SnackBarThemeData(
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: kBorderRadius,
     ),
     backgroundColor: kDarkBackgroundSecondaryColor,
     contentTextStyle: const TextStyle(

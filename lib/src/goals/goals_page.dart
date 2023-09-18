@@ -22,8 +22,8 @@ class GoalsPage extends StatelessWidget {
             onPressed: () => AuthScope.loggedOut(context),
             icon: SvgPicture.asset(
               AppIcons.logout,
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
+              colorFilter: ColorFilter.mode(
+                context.textPrimaryColor,
                 BlendMode.srcIn,
               ),
             ),
