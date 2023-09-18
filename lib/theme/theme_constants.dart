@@ -19,3 +19,6 @@ const kBottomSheepDefaultPaddingHorizontal = EdgeInsets.symmetric(
 
 /// all: 20
 const kBottomSheepDefaultPadding = EdgeInsets.all(20);
+
+/// BorderRadius.circular(16)
+final kBorderRadius = BorderRadius.circular(16);

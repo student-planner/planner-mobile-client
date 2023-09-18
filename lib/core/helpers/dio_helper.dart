@@ -10,9 +10,8 @@ import 'my_logger.dart';
 /// Помощник работы с Dio
 abstract class DioHelper {
   static final _tokensRepository = TokensRepositoryImpl();
-  static const _localBaseUrl = "https://dev.waste.v1ju.ru/api";
 
-  static String get baseUrl => EnvHelper.mainApiUrl ?? _localBaseUrl;
+  static String get baseUrl => EnvHelper.mainApiUrl ?? '';
 
   /// Отправить данные
   static Future<Response> postData({
@@ -36,7 +35,10 @@ abstract class DioHelper {
   static Dio _getDioClient(bool useAuthErrorInterceptor) {
     final client = getBaseDioClient;
 
-    if (useAuthErrorInterceptor) {
+    if (!useAuthErrorInterceptor) {
+      client.options.followRedirects = false;
+      client.options.validateStatus = (status) => true;
+    } else {
       client.interceptors.add(InterceptorsWrapper(
         onRequest: (options, handler) async {
           final accessToken = await _tokensRepository.getAccessToken();
