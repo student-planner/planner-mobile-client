@@ -19,6 +19,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_secure_storage: ^9.0.0
   flutter_simple_dependency_injection: ^2.0.0
+  flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.7
   freezed_annotation: ^2.4.1
   intl: ^0.18.1

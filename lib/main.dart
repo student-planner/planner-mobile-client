@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
+import 'package:provider/provider.dart';
 
 import 'core/bloc/bloc_global_observer.dart';
 import 'core/constants/constants.dart';
@@ -15,6 +16,7 @@ import 'core/constants/routes_constants.dart';
 import 'core/helpers/message_helper.dart';
 import 'core/splash_screen.dart';
 import 'core/helpers/module_configurator.dart';
+import 'src/goals/tabs/goals/components/goals_data_provider.dart';
 import 'src/welcome/auth/bloc/auth_bloc.dart';
 import 'src/welcome/auth/bloc/auth_scope.dart';
 import 'src/welcome/login/bloc/login_bloc.dart';
@@ -63,6 +65,10 @@ class AppConfigurator extends StatelessWidget {
           ),
           BlocProvider<ILoginBloc>(
             create: (context) => injector.get<ILoginBloc>(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => injector.get<GoalsDataProvider>(),
+            lazy: true,
           ),
         ],
         child: AdaptiveTheme(

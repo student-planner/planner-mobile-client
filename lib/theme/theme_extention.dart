@@ -22,7 +22,8 @@ extension CurrentTheme on BuildContext {
       isDarkMode ? kDarkTextSecondaryColor : kLightTextSecondaryColor;
 
   /// Получить текущий режим
-  AdaptiveThemeMode get currentMode => _manager.mode;
+  //AdaptiveThemeMode get currentMode => _manager.mode;
+  AdaptiveThemeMode get currentMode => AdaptiveThemeMode.dark;
 
   /// Проверка на темную тему
   bool get isDarkMode => currentMode == AdaptiveThemeMode.dark;

@@ -13,6 +13,16 @@ abstract class DioHelper {
 
   static String get baseUrl => EnvHelper.mainApiUrl ?? '';
 
+  /// Получить данные
+  static Future<Response> getData({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    bool useAuthErrorInterceptor = true,
+  }) async {
+    final dio = _getDioClient(useAuthErrorInterceptor);
+    return await dio.get(url, queryParameters: queryParameters);
+  }
+
   /// Отправить данные
   static Future<Response> postData({
     required String url,
@@ -44,27 +54,14 @@ abstract class DioHelper {
           final accessToken = await _tokensRepository.getAccessToken();
           debugPrint('accessToken -> $accessToken');
 
-          final headers = Map<String, dynamic>.from(options.headers);
-          headers['accept'] = 'application/json';
-          headers['Content-Type'] = 'application/json';
-
-          if (accessToken != null && options.data is Map) {
-            if (options.data is Map) {
-              final body = Map.from(options.data ?? {});
-              body['accessToken'] = accessToken;
-              headers['Authorization'] = 'Bearer $accessToken';
-              headers['AccessToken'] = accessToken;
-              options.data = body;
-            }
-            headers['Authorization'] = 'Bearer $accessToken';
-            headers['AccessToken'] = accessToken;
+          if (accessToken != null) {
+            options.headers['Authorization'] = 'Bearer $accessToken';
           }
 
-          options.headers = headers;
           return handler.next(options);
         },
         onError: (DioException error, handler) async {
-          if (error.response?.statusCode == 400) {
+          if (error.response?.statusCode == 401) {
             try {
               final tokensRepository = TokensRepositoryImpl();
               await tokensRepository.updateTokensFromServer();

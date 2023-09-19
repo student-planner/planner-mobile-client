@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/helpers/module_configurator.dart';
+import '../../core/widgets/tab_bar/thesis_tab_bar.dart';
+import '../../theme/theme_constants.dart';
 import '../../theme/theme_extention.dart';
 import '../welcome/auth/bloc/auth_scope.dart';
+import 'tabs/goals/components/goals_data_provider.dart';
+import 'tabs/goals/goals_tab.dart';
+import 'tabs/important/important_tab.dart';
 
 /// Страница с задачами пользователя
 class GoalsPage extends StatelessWidget {
@@ -31,6 +37,21 @@ class GoalsPage extends StatelessWidget {
           ),
           const SizedBox(width: 8),
         ],
+      ),
+      body: Padding(
+        padding: kThemeDefaultPadding,
+        child: ThesisTabBar(
+          tabs: const ['Все задачи', 'Нужно сделать'],
+          children: const [
+            GoalsTab(),
+            ImportantTab(),
+          ],
+          onTap: (index) {
+            if (index == 0) {
+              injector.get<GoalsDataProvider>().refresh();
+            }
+          },
+        ),
       ),
     );
   }
