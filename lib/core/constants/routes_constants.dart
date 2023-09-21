@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../../src/goals/contracts/goal_dto/goal_dto.dart';
+import '../../src/goals/contracts/goal_put_dto/goal_put_dto.dart';
 import '../../src/goals/goals_page.dart';
+import '../../src/goals/pages/put/goal_put_next_page.dart';
+import '../../src/goals/pages/put/goal_put_page.dart';
 import '../../src/welcome/login/contracts/ticket_dto/ticket_dto.dart';
 import '../../src/welcome/login/login_page.dart';
 import '../../src/welcome/login/screens/login_code_screen.dart';
@@ -13,9 +17,11 @@ import '../splash_screen.dart';
 abstract class AppRoutes {
   static const String start = '/';
   static const String loading = '/loading';
-  static const String goals = '/goals';
   static const String login = '/login/email';
   static const String loginCode = '/login/code';
+  static const String goals = '/goals';
+  static const String goalsPut = '/goals/put';
+  static const String goalsPutContinue = '/goals/put/continue';
 
   /// Сгенерировать роут
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -34,6 +40,16 @@ abstract class AppRoutes {
           );
         case goals:
           return MaterialPageRoute(builder: (_) => const GoalsPage());
+        case goalsPut:
+          final goalDto = settings.arguments as GoalDto?;
+          return MaterialPageRoute(
+            builder: (_) => GoalPutPage(goalDto: goalDto),
+          );
+        case goalsPutContinue:
+          final goalPutDto = settings.arguments as GoalPutDto;
+          return MaterialPageRoute(
+            builder: (_) => GoalPutNextPage(goalPutDto: goalPutDto),
+          );
         default:
           return null;
       }

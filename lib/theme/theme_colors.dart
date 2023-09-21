@@ -24,8 +24,10 @@ const kGray3Color = Color(0xFF4F4F4F);
 
 const kRedColor = Color(0xFFFF453A);
 const kDarkRedColor = Color(0xFFB73E37);
+const kPinkColor = Color(0xFFF64B6A);
 const kBlueColor = Color(0xFF007AFF);
 const kTealColor = Color(0xFF5AC8FA);
+const kLimeColor = Color(0xFF98DE25);
 const kGreenColor = Color(0xFF34C759);
 const kOrangeColor = Color(0xFFFF9500);
 const kIndigoColor = Color(0xFF5856D6);

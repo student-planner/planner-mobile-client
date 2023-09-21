@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../contracts/goal_dto/goal_dto.dart';
+import '../../../contracts/goal_put_dto/goal_put_dto.dart';
 import '../../../repositories/goals_repository.dart';
 
 /// Провайдер данных для целей
@@ -24,6 +25,14 @@ class GoalsDataProvider with ChangeNotifier {
   Future<GoalDto> getGoal(String id) async {
     try {
       return await _goalsRepository.getGoal(id);
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<int> putGoal(GoalPutDto goal) async {
+    try {
+      return await _goalsRepository.putGoal(goal);
     } on Exception catch (_) {
       rethrow;
     }

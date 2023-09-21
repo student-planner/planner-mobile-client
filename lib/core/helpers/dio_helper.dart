@@ -33,6 +33,16 @@ abstract class DioHelper {
     return await dio.post(url, data: data);
   }
 
+  /// Обновить данные
+  static Future<Response> putData({
+    required String url,
+    dynamic data = const {},
+    bool useAuthErrorInterceptor = true,
+  }) async {
+    final dio = _getDioClient(useAuthErrorInterceptor);
+    return await dio.put(url, data: data);
+  }
+
   static Dio get getBaseDioClient => Dio(
         BaseOptions(
           baseUrl: baseUrl,

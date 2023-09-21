@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/helpers/my_logger.dart';
 import '../../../../core/widgets/thesis_progress_bar.dart';
 import '../../../../core/widgets/thesis_staggered_list.dart';
 import '../../../../theme/theme_colors.dart';
@@ -31,6 +32,7 @@ class GoalsTab extends StatelessWidget {
             }
 
             if (snapshot.hasError) {
+              MyLogger.e(snapshot.error.toString());
               return Padding(
                 padding: const EdgeInsets.only(top: 48),
                 child: Column(
@@ -73,7 +75,7 @@ class GoalsTab extends StatelessWidget {
               );
             }
 
-            final goals = snapshot.data ?? [];
+            final goals = (snapshot.data ?? []).reversed.toList();
             return Visibility(
               visible: goals.isEmpty,
               child: Padding(

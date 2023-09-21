@@ -14,6 +14,7 @@ const _navigationBarStyle = TextStyle(
 final lightThemeData = ThemeData(
   scaffoldBackgroundColor: kLightBackgroundColor,
   fontFamily: "SFProDisplay",
+  brightness: Brightness.light,
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(
       color: kLightTextPrimaryColor,
@@ -135,9 +136,9 @@ final lightThemeData = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     errorMaxLines: 4,
     floatingLabelStyle: const TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       letterSpacing: 0.15,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: kLightTextPrimaryColor,
     ),
     labelStyle: const TextStyle(

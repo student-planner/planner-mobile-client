@@ -29,6 +29,11 @@ class GoalCard extends StatelessWidget {
               goal.description,
               style: context.textTheme.bodyMedium,
             ),
+            const SizedBox(height: 4),
+            Text(
+              goal.deadline.toString(),
+              style: context.textTheme.bodyMedium,
+            ),
           ],
         ),
       ),

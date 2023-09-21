@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../theme/theme_extention.dart';
-import '../thesis_progress_bar.dart';
+import '../../../theme/theme_colors.dart';
+import 'thesis_button_content.dart';
 import 'thesis_button_options.dart';
 
 /// Компонент базовой кнопки с обводкой
@@ -33,7 +33,7 @@ class ThesisOutlinedButton extends StatelessWidget {
             ),
             side: MaterialStateProperty.all(
               const BorderSide(
-                color: Colors.black,
+                color: kPrimaryColor,
                 width: 2.0,
                 style: BorderStyle.solid,
               ),
@@ -45,40 +45,14 @@ class ThesisOutlinedButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: _ThesisButtonContent(
+          child: ThesisButtonContent(
             text: text,
+            color: kPrimaryLighterColor,
             isDisabled: isDisabled,
             isLoading: isLoading,
           ),
         );
       },
-    );
-  }
-}
-
-class _ThesisButtonContent extends StatelessWidget {
-  const _ThesisButtonContent({
-    required this.text,
-    required this.isDisabled,
-    required this.isLoading,
-  });
-
-  final String text;
-  final bool isDisabled;
-  final bool isLoading;
-
-  @override
-  Widget build(BuildContext context) {
-    final defaultTextStyle = context.textTheme.titleLarge!;
-    return Container(
-      child: isLoading
-          ? const ThesisProgressBar()
-          : Text(
-              text,
-              style: isDisabled
-                  ? defaultTextStyle
-                  : defaultTextStyle.copyWith(color: Colors.black),
-            ),
     );
   }
 }

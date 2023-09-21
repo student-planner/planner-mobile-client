@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../theme/theme_colors.dart';
-import '../../../../../theme/theme_extention.dart';
-import '../thesis_progress_bar.dart';
+import 'thesis_button_content.dart';
 import 'thesis_button_options.dart';
 
 /// Компонент базовой кнопки
@@ -72,7 +71,7 @@ class ThesisButton extends StatelessWidget {
                     () => isLoadingNotifier.value = false,
                   );
                 },
-          child: _ThesisButtonContent(
+          child: ThesisButtonContent(
             child: child,
             text: text,
             isLoading: isLoading,
@@ -80,40 +79,6 @@ class ThesisButton extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _ThesisButtonContent extends StatelessWidget {
-  const _ThesisButtonContent({
-    this.child,
-    this.text,
-    required this.isDisabled,
-    required this.isLoading,
-  });
-
-  final Widget? child;
-  final String? text;
-
-  final bool isDisabled;
-  final bool isLoading;
-
-  @override
-  Widget build(BuildContext context) {
-    final defaultTextStyle = context.textTheme.titleLarge!.copyWith(
-      color: Colors.white,
-    );
-    return Container(
-      child: isLoading
-          ? const ThesisProgressBar(color: kDarkTextPrimaryColor)
-          : text != null
-              ? Text(
-                  text!,
-                  style: isDisabled
-                      ? defaultTextStyle.copyWith(fontWeight: FontWeight.w600)
-                      : defaultTextStyle,
-                )
-              : child,
     );
   }
 }

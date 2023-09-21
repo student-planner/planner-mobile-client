@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/routes_constants.dart';
 import '../../core/helpers/module_configurator.dart';
 import '../../core/widgets/tab_bar/thesis_tab_bar.dart';
 import '../../theme/theme_constants.dart';
@@ -17,6 +19,7 @@ class GoalsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = injector.get<GoalsDataProvider>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,6 +41,18 @@ class GoalsPage extends StatelessWidget {
           const SizedBox(width: 8),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => navService
+            .pushNamed(AppRoutes.goalsPut)
+            .whenComplete(() => provider.refresh()),
+        child: SvgPicture.asset(
+          AppIcons.add,
+          colorFilter: ColorFilter.mode(
+            context.textPrimaryColor,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
       body: Padding(
         padding: kThemeDefaultPadding,
         child: ThesisTabBar(
@@ -48,7 +63,7 @@ class GoalsPage extends StatelessWidget {
           ],
           onTap: (index) {
             if (index == 0) {
-              injector.get<GoalsDataProvider>().refresh();
+              provider.refresh();
             }
           },
         ),
