@@ -63,4 +63,22 @@ class GoalsRepositoryImpl implements IGoalsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<GoalDto>> getMostImportantGoals() async {
+    try {
+      final response = await DioHelper.getData(url: '/goal/important');
+
+      switch (response.statusCode) {
+        case 200:
+          return (response.data as List)
+              .map((e) => GoalDto.fromJson(e))
+              .toList();
+        default:
+          throw Exception('Что-то пошло не так');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -188,6 +188,13 @@ final lightThemeData = ThemeData(
       borderRadius: kBorderRadius,
     ),
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      overlayColor: MaterialStateProperty.all(
+        kPrimaryColor.withOpacity(0.1),
+      ),
+    ),
+  ),
   snackBarTheme: SnackBarThemeData(
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(

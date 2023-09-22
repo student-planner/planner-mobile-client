@@ -15,7 +15,7 @@ import '../../../../theme/theme_constants.dart';
 import '../../../../theme/theme_extention.dart';
 import '../../contracts/goal_priority.dart';
 import '../../contracts/goal_put_dto/goal_put_dto.dart';
-import '../../tabs/goals/components/goals_data_provider.dart';
+import '../../components/goals_data_provider.dart';
 
 /// Страница добавления/изменения цели
 class GoalPutNextPage extends StatelessWidget {

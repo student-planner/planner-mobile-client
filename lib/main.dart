@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/services.dart';
@@ -16,9 +17,10 @@ import 'core/bloc/bloc_global_observer.dart';
 import 'core/constants/constants.dart';
 import 'core/constants/routes_constants.dart';
 import 'core/helpers/message_helper.dart';
+import 'core/helpers/my_logger.dart';
 import 'core/splash_screen.dart';
 import 'core/helpers/module_configurator.dart';
-import 'src/goals/tabs/goals/components/goals_data_provider.dart';
+import 'src/goals/components/goals_data_provider.dart';
 import 'src/welcome/auth/bloc/auth_bloc.dart';
 import 'src/welcome/auth/bloc/auth_scope.dart';
 import 'src/welcome/login/bloc/login_bloc.dart';
@@ -30,6 +32,9 @@ Future<void> main() async {
   await dotenv.load(fileName: '.env');
 
   ModuleConfigurator.init();
+
+  final connect = await (Connectivity().checkConnectivity());
+  MyLogger.i('connection: ${connect.name}');
 
   await initializeDateFormatting('ru_RU', null);
   Bloc.observer = BlocGlobalObserver();

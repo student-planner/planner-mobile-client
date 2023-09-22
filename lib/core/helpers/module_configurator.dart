@@ -1,8 +1,10 @@
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
+import '../../src/goals/cache/goals_cache_manager.dart';
+import '../../src/goals/cache/goals_cache_prefs_manager_impl.dart';
 import '../../src/goals/repositories/goals_repository.dart';
 import '../../src/goals/repositories/goals_repository_impl.dart';
-import '../../src/goals/tabs/goals/components/goals_data_provider.dart';
+import '../../src/goals/components/goals_data_provider.dart';
 import '../../src/welcome/auth/bloc/auth_bloc.dart';
 import '../../src/welcome/auth/repositories/auth_repository.dart';
 import '../../src/welcome/auth/repositories/auth_repository_impl.dart';
@@ -34,6 +36,7 @@ class ModuleConfigurator {
     );
     injector.map<ILoginRepository>((i) => LoginRepositoryImpl());
     injector.map<IGoalsRepository>((i) => GoalsRepositoryImpl());
+    injector.map<IGoalsCacheManager>((i) => GoalsCachePrefsManagerImpl());
   }
 
   static void _initBloc() {
@@ -55,7 +58,10 @@ class ModuleConfigurator {
 
   static void _initProvider() {
     injector.map<GoalsDataProvider>(
-      (i) => GoalsDataProvider(goalsRepository: i.get<IGoalsRepository>()),
+      (i) => GoalsDataProvider(
+        goalsRepository: i.get<IGoalsRepository>(),
+        goalsCacheManager: i.get<IGoalsCacheManager>(),
+      ),
       isSingleton: true,
     );
   }
