@@ -131,9 +131,9 @@ class _ImportantTabState extends State<ImportantTab> {
           ),
           replacement: RefreshIndicator(
             color: kPrimaryColor,
-            onRefresh: () async {
-              widget.provider.refresh();
-            },
+            onRefresh: () async => setState(() {
+              _importantFuture = widget.provider.loadMostImportantGoals();
+            }),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.74,
