@@ -17,10 +17,26 @@ class GoalDto with _$GoalDto {
     required double labor,
     required GoalPriority priority,
     required GoalStatus status,
-    required List<String> subGoalsIds,
-    required List<String> dependGoalsIds,
   }) = _GoalDto;
 
   factory GoalDto.fromJson(Map<String, dynamic> json) =>
       _$GoalDtoFromJson(json);
+}
+
+/// Расширение для модели данных цели
+extension GoalDtoDuration on GoalDto {
+  /// Возвращает длительность цели в формате "ч. мин."
+  String get duration {
+    final dur = Duration(seconds: this.labor.toInt());
+    var result = '';
+    final hours = dur.inHours;
+    if (hours > 0) {
+      result += '$hours ч. ';
+    }
+    final minutes = dur.inMinutes.remainder(60);
+    if (minutes > 0) {
+      result += '$minutes мин.';
+    }
+    return result.trim();
+  }
 }

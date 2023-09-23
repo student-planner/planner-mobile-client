@@ -150,7 +150,7 @@ class GoalPutNextPage extends StatelessWidget {
                           context,
                           priorityNotifier.value,
                         );
-                        priorityController.text = priority.getString;
+                        priorityController.text = priority.name;
                         putDto = putDto.copyWith(priority: priority);
                         priorityNotifier.value = priority;
                       },
@@ -276,9 +276,9 @@ class _GoalPriorityBottomSheep {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     color: current == priorities[index]
-                                        ? current.getColor
+                                        ? current.color
                                         : priorities[index]
-                                            .getColor
+                                            .color
                                             .withOpacity(0.25),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(6.0),
@@ -314,7 +314,7 @@ class _GoalPriorityBottomSheep {
                                             decoration: BoxDecoration(
                                               color:
                                                   current == priorities[index]
-                                                      ? current.getColor
+                                                      ? current.color
                                                       : const Color(0xFF767676),
                                               borderRadius:
                                                   BorderRadius.circular(120),
@@ -324,7 +324,7 @@ class _GoalPriorityBottomSheep {
                                       ),
                                       const SizedBox(width: 20),
                                       Text(
-                                        priorities[index].getString,
+                                        priorities[index].name,
                                         style: context.textTheme.titleLarge,
                                       ),
                                     ],

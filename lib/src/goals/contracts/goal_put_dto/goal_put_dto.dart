@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../goal_dto/goal_dto.dart';
 import '../goal_priority.dart';
+import '../goal_status.dart';
 
 part 'goal_put_dto.freezed.dart';
 part 'goal_put_dto.g.dart';
@@ -16,6 +17,7 @@ class GoalPutDto with _$GoalPutDto {
     required DateTime deadline,
     required double labor,
     required GoalPriority priority,
+    required GoalStatus status,
     required List<String> subGoalsIds,
     required List<String> dependGoalsIds,
   }) = _GoalPutDto;
@@ -27,8 +29,9 @@ class GoalPutDto with _$GoalPutDto {
         deadline: goalDto?.deadline ?? DateTime.now(),
         labor: goalDto?.labor ?? 0,
         priority: goalDto?.priority ?? GoalPriority.extraLow,
-        subGoalsIds: goalDto?.subGoalsIds ?? [],
-        dependGoalsIds: goalDto?.dependGoalsIds ?? [],
+        status: goalDto?.status ?? GoalStatus.New,
+        subGoalsIds: [],
+        dependGoalsIds: [],
       );
 
   factory GoalPutDto.fromJson(Map<String, dynamic> json) =>

@@ -8,7 +8,7 @@ class GoalsRepositoryImpl implements IGoalsRepository {
   @override
   Future<GoalDto> getGoal(String id) async {
     try {
-      final response = await DioHelper.getData(url: '/goal/$id');
+      final response = await DioHelper.getData(url: '/goals/$id');
 
       switch (response.statusCode) {
         case 200:
@@ -24,7 +24,7 @@ class GoalsRepositoryImpl implements IGoalsRepository {
   @override
   Future<List<GoalDto>> getGoals() async {
     try {
-      final response = await DioHelper.getData(url: '/goal');
+      final response = await DioHelper.getData(url: '/goals');
 
       switch (response.statusCode) {
         case 200:
@@ -43,7 +43,7 @@ class GoalsRepositoryImpl implements IGoalsRepository {
   Future<int> putGoal(GoalPutDto goal) async {
     try {
       final response = await DioHelper.putData(
-        url: '/goal',
+        url: '/goals',
         data: goal.toJson(),
       );
 
@@ -67,7 +67,7 @@ class GoalsRepositoryImpl implements IGoalsRepository {
   @override
   Future<List<GoalDto>> getMostImportantGoals() async {
     try {
-      final response = await DioHelper.getData(url: '/goal/important');
+      final response = await DioHelper.getData(url: '/goals/important');
 
       switch (response.statusCode) {
         case 200:

@@ -39,7 +39,7 @@ enum GoalPriority {
 
 extension GoalPriorityExtension on GoalPriority {
   /// Получить строковое представление приоритета
-  String get getString {
+  String get name {
     switch (this) {
       case GoalPriority.extraLow:
         return 'Очень низкий';
@@ -57,7 +57,7 @@ extension GoalPriorityExtension on GoalPriority {
   }
 
   /// Получить цвет приоритета
-  Color get getColor {
+  Color get color {
     switch (this) {
       case GoalPriority.extraLow:
         return kGreenColor;
