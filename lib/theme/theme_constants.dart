@@ -20,5 +20,11 @@ const kBottomSheepDefaultPaddingHorizontal = EdgeInsets.symmetric(
 /// all: 20
 const kBottomSheepDefaultPadding = EdgeInsets.all(20);
 
+/// vertical: 20, horizontal: 16
+const kCardBottomSheepDefaultPadding = EdgeInsets.symmetric(
+  vertical: 20,
+  horizontal: 16,
+);
+
 /// BorderRadius.circular(16)
 final kBorderRadius = BorderRadius.circular(16);

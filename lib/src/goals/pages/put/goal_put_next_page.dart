@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -193,7 +195,9 @@ class GoalPutNextPage extends StatelessWidget {
             ColoredBox(
               color: context.currentTheme.scaffoldBackgroundColor,
               child: Padding(
-                padding: kThemeDefaultPadding.copyWith(bottom: 48),
+                padding: kThemeDefaultPadding.copyWith(
+                  bottom: Platform.isIOS ? 48 : 24,
+                ),
                 child: Column(
                   children: [
                     ThesisButton.fromText(
@@ -261,7 +265,7 @@ class _GoalPriorityBottomSheep {
                             priorityNotifier.value = priorities[index];
                           },
                           child: Card(
-                            color: const Color(0xFF3A3A3C),
+                            color: kCardBottomSheepColor,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,

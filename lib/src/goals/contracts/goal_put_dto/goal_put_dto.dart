@@ -26,7 +26,7 @@ class GoalPutDto with _$GoalPutDto {
         description: goalDto?.description ?? '',
         deadline: goalDto?.deadline ?? DateTime.now(),
         labor: goalDto?.labor ?? 0,
-        priority: goalDto?.priority ?? GoalPriority.low,
+        priority: goalDto?.priority ?? GoalPriority.extraLow,
         subGoalsIds: goalDto?.subGoalsIds ?? [],
         dependGoalsIds: goalDto?.dependGoalsIds ?? [],
       );

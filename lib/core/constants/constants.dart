@@ -7,7 +7,7 @@ final kTimeFormatter = DateFormat('HH ч. mm мин.', 'ru_RU');
 final kDateFormatter = DateFormat('d MMMM yг.', 'ru_RU');
 final kDateTimeFormatter = DateFormat('d MMMM y, HH:mm', 'ru_RU');
 const kDefaultPhysics = BouncingScrollPhysics();
-const kCardBottomPadding = EdgeInsets.only(bottom: 16);
+const kCardBottomPadding = EdgeInsets.only(bottom: 12);
 
 const storage = FlutterSecureStorage(
   aOptions: AndroidOptions(

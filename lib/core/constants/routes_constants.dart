@@ -21,6 +21,7 @@ abstract class AppRoutes {
   static const String loginCode = '/login/code';
   static const String goals = '/goals';
   static const String goalsPut = '/goals/put';
+  static const String goalsPutAddProps = '/goals/put/add_props';
   static const String goalsPutContinue = '/goals/put/continue';
 
   /// Сгенерировать роут

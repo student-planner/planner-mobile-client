@@ -22,6 +22,8 @@ const kGray1Color = Color(0xFFDADADA);
 const kGray2Color = Color(0xFF8E8E93);
 const kGray3Color = Color(0xFF4F4F4F);
 
+const kCardBottomSheepColor = Color(0xFF3A3A3C);
+
 const kRedColor = Color(0xFFFF453A);
 const kDarkRedColor = Color(0xFFB73E37);
 const kPinkColor = Color(0xFFF64B6A);
