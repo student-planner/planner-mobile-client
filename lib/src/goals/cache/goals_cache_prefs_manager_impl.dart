@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/helpers/my_logger.dart';
-import '../contracts/goal_dto/goal_dto.dart';
+import '../contracts/goal_base_dto/goal_base_dto.dart';
+import '../contracts/goal_important_dto/goal_important_dto.dart';
 import 'goals_cache_manager.dart';
 
 /// Реализация кэша целей через SharedPreferences
@@ -13,7 +14,7 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
   final String _goalsPrefixKey = '_goals_prefix__';
 
   @override
-  Future<GoalDto?> getGoal(String id) async {
+  Future<GoalBaseDto?> getGoal(String id) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final goal = prefs.getString(_goalsPrefixKey + id);
@@ -25,7 +26,7 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
         }
         return Future.value(null);
       }
-      return Future.value(GoalDto.fromJson(jsonDecode(goal)));
+      return Future.value(GoalBaseDto.fromJson(jsonDecode(goal)));
     } catch (e) {
       MyLogger.e(e.toString());
       return Future.value(null);
@@ -33,18 +34,18 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
   }
 
   @override
-  Future<List<GoalDto>> getGoals() async {
+  Future<List<GoalBaseDto>> getGoals() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final goalIds = prefs.getStringList(_goalsKey);
       if (goalIds == null) {
         return Future.value([]);
       }
-      final goals = <GoalDto>[];
+      final goals = <GoalBaseDto>[];
       for (final id in goalIds) {
         final goal = prefs.getString(_goalsPrefixKey + id);
         if (goal != null) {
-          goals.add(GoalDto.fromJson(jsonDecode(goal)));
+          goals.add(GoalBaseDto.fromJson(jsonDecode(goal)));
         }
       }
       return Future.value(goals);
@@ -55,9 +56,9 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
   }
 
   @override
-  Future<bool> setGoals(List<GoalDto> goals) async {
+  Future<bool> setGoals(List<GoalBaseDto> goals) async {
     final newIds = goals.map((e) => e.id).toList();
-    final goalById = Map<String, GoalDto>.fromIterable(
+    final goalById = Map<String, GoalBaseDto>.fromIterable(
       goals,
       key: (e) => e.id,
       value: (e) => e,
@@ -83,7 +84,7 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
   }
 
   @override
-  Future<List<GoalDto>> getMostImportantGoals() async {
+  Future<List<GoalImportantDto>> getMostImportantGoals() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final goals = prefs.getStringList(_importantGoalsKey);
@@ -91,11 +92,23 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
         return Future.value([]);
       }
       return Future.value(
-        goals.map((e) => GoalDto.fromJson(jsonDecode(e))).toList(),
+        goals.map((e) => GoalImportantDto.fromJson(jsonDecode(e))).toList(),
       );
     } catch (e) {
       MyLogger.e(e.toString());
       return Future.value([]);
+    }
+  }
+
+  @override
+  Future<bool> setMostImportantGoals(List<GoalImportantDto> goals) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final goalsJson = goals.map((e) => jsonEncode(e.toJson())).toList();
+      return await prefs.setStringList(_importantGoalsKey, goalsJson);
+    } catch (e) {
+      MyLogger.e(e.toString());
+      return Future.value(false);
     }
   }
 
@@ -109,18 +122,6 @@ class GoalsCachePrefsManagerImpl implements IGoalsCacheManager {
         await prefs.setStringList(_goalsKey, goalIds);
       }
       return await prefs.remove(_goalsPrefixKey + id);
-    } catch (e) {
-      MyLogger.e(e.toString());
-      return Future.value(false);
-    }
-  }
-
-  @override
-  Future<bool> setMostImportantGoals(List<GoalDto> goals) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final goalsJson = goals.map((e) => jsonEncode(e.toJson())).toList();
-      return await prefs.setStringList(_importantGoalsKey, goalsJson);
     } catch (e) {
       MyLogger.e(e.toString());
       return Future.value(false);

@@ -15,13 +15,14 @@ import '../../../../theme/theme_colors.dart';
 import '../../../../theme/theme_constants.dart';
 import '../../../../theme/theme_extention.dart';
 import '../../components/goals_data_provider.dart';
-import '../../contracts/goal_dto/goal_dto.dart';
+import '../../contracts/goal_base_dto/goal_base_dto.dart';
+import '../../contracts/goal_important_dto/goal_important_dto.dart';
 import '../../contracts/goal_priority.dart';
-import '../../contracts/goal_put_dto/goal_put_dto.dart';
 import '../../contracts/goal_status.dart';
 import '../../widgets/goal_card.dart';
 import '../../widgets/goal_status_card.dart';
 
+/// Вкладка с задачами для выполнения
 class ImportantTab extends StatefulWidget {
   const ImportantTab({
     super.key,
@@ -35,7 +36,7 @@ class ImportantTab extends StatefulWidget {
 }
 
 class _ImportantTabState extends State<ImportantTab> {
-  late Future<List<GoalDto>> _importantFuture;
+  late Future<List<GoalImportantDto>> _importantFuture;
 
   @override
   void initState() {
@@ -149,7 +150,7 @@ class _ImportantTabState extends State<ImportantTab> {
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.74,
               ),
-              child: ThesisStaggeredList<GoalDto>(
+              child: ThesisStaggeredList<GoalImportantDto>(
                 items: goals,
                 renderChild: (goal) => InkWell(
                   highlightColor: Colors.transparent,
@@ -182,7 +183,7 @@ class _ImportantTabState extends State<ImportantTab> {
                     }
                   },
                   child: GoalCard(
-                    goal: goal,
+                    goal: GoalBaseDto.fromJson(goal.toJson()),
                   ),
                 ),
               ),
@@ -197,7 +198,7 @@ class _ImportantTabState extends State<ImportantTab> {
 class _TakeGoalBottomSheep {
   static Future<bool> show(
     BuildContext context, {
-    required GoalDto goal,
+    required GoalImportantDto goal,
     required GoalsDataProvider dataProvider,
   }) async {
     final resultNotifier = ValueNotifier<bool>(false);
@@ -296,13 +297,13 @@ class _TakeGoalBottomSheep {
                   ThesisButton.fromText(
                     text: 'Взять в работу',
                     onPressed: () async {
-                      var putDto = GoalPutDto.fromGoalDto(goal);
-                      putDto = putDto.copyWith(
-                        status: GoalStatus.InProgress,
-                      );
-                      await dataProvider.putGoal(putDto);
-                      resultNotifier.value = true;
-                      Navigator.pop(context);
+                      // var putDto = GoalPutDto.fromGoalImportantDto(goal);
+                      // putDto = putDto.copyWith(
+                      //   status: GoalStatus.InProgress,
+                      // );
+                      // await dataProvider.putGoal(putDto);
+                      // resultNotifier.value = true;
+                      // Navigator.pop(context);
                     },
                   ),
                   const SizedBox(height: 12),
@@ -325,7 +326,7 @@ class _TakeGoalBottomSheep {
 class _SetGoalLaborBottomSheep {
   static Future<bool> show(
     BuildContext context, {
-    required GoalDto goal,
+    required GoalImportantDto goal,
     required GoalsDataProvider dataProvider,
   }) async {
     final resultNotifier = ValueNotifier<bool>(false);
@@ -491,17 +492,17 @@ class _SetGoalLaborBottomSheep {
                         text: 'Зафиксировать результат',
                         isDisabled: goal.labor < labor.inSeconds,
                         onPressed: () async {
-                          var putDto = GoalPutDto.fromGoalDto(goal);
-                          final finalLabor = goal.labor - labor.inSeconds;
-                          putDto = putDto.copyWith(
-                            labor: finalLabor,
-                            status: finalLabor == 0
-                                ? GoalStatus.Done
-                                : GoalStatus.InProgress,
-                          );
-                          await dataProvider.putGoal(putDto);
-                          resultNotifier.value = true;
-                          Navigator.pop(context);
+                          // var putDto = GoalPutDto.fromGoalDto(goal);
+                          // final finalLabor = goal.labor - labor.inSeconds;
+                          // putDto = putDto.copyWith(
+                          //   labor: finalLabor,
+                          //   status: finalLabor == 0
+                          //       ? GoalStatus.Done
+                          //       : GoalStatus.InProgress,
+                          // );
+                          // await dataProvider.putGoal(putDto);
+                          // resultNotifier.value = true;
+                          // Navigator.pop(context);
                         },
                       );
                     },
@@ -510,14 +511,14 @@ class _SetGoalLaborBottomSheep {
                   ThesisOutlinedButton(
                     text: 'Завершить досрочно',
                     onPressed: () async {
-                      var putDto = GoalPutDto.fromGoalDto(goal);
-                      putDto = putDto.copyWith(
-                        labor: 0,
-                        status: GoalStatus.Done,
-                      );
-                      await dataProvider.putGoal(putDto);
-                      resultNotifier.value = true;
-                      Navigator.pop(context);
+                      // var putDto = GoalPutDto.fromGoalDto(goal);
+                      // putDto = putDto.copyWith(
+                      //   labor: 0,
+                      //   status: GoalStatus.Done,
+                      // );
+                      // await dataProvider.putGoal(putDto);
+                      // resultNotifier.value = true;
+                      // Navigator.pop(context);
                     },
                   ),
                   const SizedBox(height: 16),

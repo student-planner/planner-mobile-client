@@ -50,7 +50,9 @@ class ThesisButton extends StatelessWidget {
         return ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-              isDisabled || isLoading ? kGray2Color : kPrimaryColor,
+              isDisabled || isLoading
+                  ? kGray2Color
+                  : options.color ?? kPrimaryColor,
             ),
             fixedSize: MaterialStateProperty.all<Size>(
               Size(options.width ?? buttonWidth, options.height),

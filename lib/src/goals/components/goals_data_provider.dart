@@ -2,7 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../cache/goals_cache_manager.dart';
-import '../contracts/goal_dto/goal_dto.dart';
+import '../contracts/goal_base_dto/goal_base_dto.dart';
+import '../contracts/goal_detailed_dto/goal_detailed_dto.dart';
+import '../contracts/goal_important_dto/goal_important_dto.dart';
 import '../contracts/goal_put_dto/goal_put_dto.dart';
 import '../repositories/goals_repository.dart';
 
@@ -10,7 +12,7 @@ import '../repositories/goals_repository.dart';
 class GoalsDataProvider with ChangeNotifier {
   final IGoalsCacheManager _goalsCacheManager;
   final IGoalsRepository _goalsRepository;
-  late Stream<List<GoalDto>> _goalsStream;
+  late Stream<List<GoalBaseDto>> _goalsStream;
 
   GoalsDataProvider({
     required IGoalsRepository goalsRepository,
@@ -20,7 +22,7 @@ class GoalsDataProvider with ChangeNotifier {
     _setStream();
   }
 
-  Stream<List<GoalDto>> get goalsStream => _goalsStream;
+  Stream<List<GoalBaseDto>> get goalsStream => _goalsStream;
   Future<bool> get _isConnectionAvailable async {
     return await (Connectivity().checkConnectivity()) !=
         ConnectivityResult.none;
@@ -37,14 +39,14 @@ class GoalsDataProvider with ChangeNotifier {
     future.then((goals) => _goalsCacheManager.setGoals(goals));
   }
 
-  Future<List<GoalDto>> _loadGoals() async {
+  Future<List<GoalBaseDto>> _loadGoals() async {
     final hasConnection = await _isConnectionAvailable;
     return hasConnection
         ? _goalsRepository.getGoals()
         : _goalsCacheManager.getGoals();
   }
 
-  Future<GoalDto> getGoal(String id) async {
+  Future<GoalDetailedDto> getGoal(String id) async {
     try {
       return await _goalsRepository.getGoal(id);
     } on Exception catch (_) {
@@ -60,7 +62,7 @@ class GoalsDataProvider with ChangeNotifier {
     }
   }
 
-  Future<List<GoalDto>> loadMostImportantGoals() async {
+  Future<List<GoalImportantDto>> loadMostImportantGoals() async {
     try {
       final important = await _goalsRepository.getMostImportantGoals();
       await _goalsCacheManager.setMostImportantGoals(important);
@@ -70,7 +72,7 @@ class GoalsDataProvider with ChangeNotifier {
     }
   }
 
-  Future<List<GoalDto>> getMostImportantGoalsFromCache() async {
+  Future<List<GoalImportantDto>> getMostImportantGoalsFromCache() async {
     try {
       return await _goalsCacheManager.getMostImportantGoals();
     } on Exception catch (_) {

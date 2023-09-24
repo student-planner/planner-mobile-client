@@ -1,15 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../goal_base_dto/goal_base_dto.dart';
 import '../goal_priority.dart';
 import '../goal_status.dart';
 
-part 'goal_dto.freezed.dart';
-part 'goal_dto.g.dart';
+part 'goal_detailed_dto.freezed.dart';
+part 'goal_detailed_dto.g.dart';
 
 /// Модель данных для цели
 @freezed
-class GoalDto with _$GoalDto {
-  const factory GoalDto({
+class GoalDetailedDto with _$GoalDetailedDto {
+  const factory GoalDetailedDto({
     required String id,
     required String name,
     required String description,
@@ -17,14 +18,16 @@ class GoalDto with _$GoalDto {
     required double labor,
     required GoalPriority priority,
     required GoalStatus status,
-  }) = _GoalDto;
+    required List<GoalBaseDto> subGoals,
+    required List<GoalBaseDto> dependGoals,
+  }) = _GoalDetailedDto;
 
-  factory GoalDto.fromJson(Map<String, dynamic> json) =>
-      _$GoalDtoFromJson(json);
+  factory GoalDetailedDto.fromJson(Map<String, dynamic> json) =>
+      _$GoalDetailedDtoFromJson(json);
 }
 
 /// Расширение для модели данных цели
-extension GoalDtoDuration on GoalDto {
+extension GoalDetailedDtoDuration on GoalDetailedDto {
   /// Возвращает длительность цели в формате "ч. мин."
   String get duration {
     final dur = Duration(seconds: this.labor.toInt());

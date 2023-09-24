@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/constants.dart';
 import '../../../theme/theme_colors.dart';
 import '../../../theme/theme_extention.dart';
-import '../contracts/goal_dto/goal_dto.dart';
+import '../contracts/goal_base_dto/goal_base_dto.dart';
 import '../contracts/goal_status.dart';
 import 'goal_status_card.dart';
 
@@ -13,7 +13,7 @@ class GoalCard extends StatelessWidget {
     required this.goal,
   });
 
-  final GoalDto goal;
+  final GoalBaseDto goal;
 
   @override
   Widget build(BuildContext context) {

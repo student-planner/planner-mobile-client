@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/constants/routes_constants.dart';
 import '../../../../core/helpers/my_logger.dart';
 import '../../../../core/widgets/thesis_progress_bar.dart';
 import '../../../../core/widgets/thesis_staggered_list.dart';
 import '../../../../theme/theme_colors.dart';
 import '../../../../theme/theme_extention.dart';
-import '../../contracts/goal_dto/goal_dto.dart';
+import '../../contracts/goal_base_dto/goal_base_dto.dart';
 import '../../widgets/goal_card.dart';
 import '../../components/goals_data_provider.dart';
 
@@ -77,7 +79,7 @@ class GoalsTab extends StatelessWidget {
           );
         }
 
-        final goals = (snapshot.data ?? []).reversed.toList();
+        final goals = snapshot.data ?? [];
         return Visibility(
           visible: goals.isEmpty,
           child: Padding(
@@ -113,9 +115,19 @@ class GoalsTab extends StatelessWidget {
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.74,
               ),
-              child: ThesisStaggeredList<GoalDto>(
+              child: ThesisStaggeredList<GoalBaseDto>(
                 items: goals,
-                renderChild: (goal) => GoalCard(goal: goal),
+                renderChild: (goal) => InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () async {
+                    final detailed = await provider.getGoal(goal.id);
+                    navService
+                        .pushNamed(AppRoutes.goalsDetailed, args: detailed)
+                        .whenComplete(() => provider.refresh());
+                  },
+                  child: GoalCard(goal: goal),
+                ),
               ),
             ),
           ),

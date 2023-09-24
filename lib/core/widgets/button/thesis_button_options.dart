@@ -7,7 +7,7 @@ class ThesisButtonOptions {
   final double? width;
   final double height;
   final TextStyle? titleStyle;
-  final Color? backgroundColor;
+  final Color? color;
 
   const ThesisButtonOptions({
     this.isOutline = false,
@@ -15,6 +15,6 @@ class ThesisButtonOptions {
     this.width,
     this.height = 56,
     this.titleStyle,
-    this.backgroundColor,
+    this.color,
   });
 }

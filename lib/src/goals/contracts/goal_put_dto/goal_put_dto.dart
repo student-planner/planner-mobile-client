@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../goal_dto/goal_dto.dart';
+import '../goal_detailed_dto/goal_detailed_dto.dart';
 import '../goal_priority.dart';
 import '../goal_status.dart';
 
@@ -22,7 +22,8 @@ class GoalPutDto with _$GoalPutDto {
     required List<String> dependGoalsIds,
   }) = _GoalPutDto;
 
-  factory GoalPutDto.fromGoalDto(GoalDto? goalDto) => GoalPutDto(
+  factory GoalPutDto.fromGoalDetailedDto(GoalDetailedDto? goalDto) =>
+      GoalPutDto(
         id: goalDto?.id,
         name: goalDto?.name ?? '',
         description: goalDto?.description ?? '',
@@ -30,9 +31,20 @@ class GoalPutDto with _$GoalPutDto {
         labor: goalDto?.labor ?? 0,
         priority: goalDto?.priority ?? GoalPriority.extraLow,
         status: goalDto?.status ?? GoalStatus.New,
-        subGoalsIds: [],
-        dependGoalsIds: [],
+        subGoalsIds: goalDto?.subGoals.map((e) => e.id).toList() ?? [],
+        dependGoalsIds: goalDto?.dependGoals.map((e) => e.id).toList() ?? [],
       );
+
+// factory GoalPutDto.fromGoalImportantDto(GoalImportantDto? goalDto) =>
+//       GoalPutDto(
+//         id: goalDto?.id,
+//         name: goalDto?.name ?? '',
+//         description: goalDto?.description ?? '',
+//         deadline: goalDto?.deadline ?? DateTime.now(),
+//         labor: goalDto?.labor ?? 0,
+//         priority: goalDto?.priority ?? GoalPriority.extraLow,
+//         status: goalDto?.status ?? GoalStatus.New,
+//       );
 
   factory GoalPutDto.fromJson(Map<String, dynamic> json) =>
       _$GoalPutDtoFromJson(json);

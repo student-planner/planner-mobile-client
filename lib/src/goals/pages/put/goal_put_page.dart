@@ -21,7 +21,8 @@ import '../../../../theme/theme_colors.dart';
 import '../../../../theme/theme_constants.dart';
 import '../../../../theme/theme_extention.dart';
 import '../../components/goals_data_provider.dart';
-import '../../contracts/goal_dto/goal_dto.dart';
+import '../../contracts/goal_base_dto/goal_base_dto.dart';
+import '../../contracts/goal_detailed_dto/goal_detailed_dto.dart';
 import '../../contracts/goal_put_dto/goal_put_dto.dart';
 import '../../contracts/goal_status.dart';
 import '../../repositories/goals_repository.dart';
@@ -35,12 +36,12 @@ class GoalPutPage extends StatelessWidget {
     this.goalDto,
   });
 
-  final GoalDto? goalDto;
+  final GoalDetailedDto? goalDto;
 
   @override
   Widget build(BuildContext context) {
     final repository = injector.get<IGoalsRepository>();
-    var putDto = GoalPutDto.fromGoalDto(goalDto);
+    var putDto = GoalPutDto.fromGoalDetailedDto(goalDto);
 
     final nameController = TextEditingController(
       text: putDto.name,
@@ -57,8 +58,8 @@ class GoalPutPage extends StatelessWidget {
     final deadlineKey = GlobalKey<FormFieldState>();
 
     final propsNotifier = ValueNotifier<List<AdditionalProperties>>([]);
-    final subGoalsNotifier = ValueNotifier<List<GoalDto>>([]);
-    final dependGoalsNotifier = ValueNotifier<List<GoalDto>>([]);
+    final subGoalsNotifier = ValueNotifier<List<GoalBaseDto>>([]);
+    final dependGoalsNotifier = ValueNotifier<List<GoalBaseDto>>([]);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -344,9 +345,9 @@ class _ShowAddGoalsList extends StatelessWidget {
     this.onFilter,
   });
 
-  final ValueNotifier<List<GoalDto>> goalsNotifier;
+  final ValueNotifier<List<GoalBaseDto>> goalsNotifier;
   final IGoalsRepository repository;
-  final bool Function(GoalDto)? onFilter;
+  final bool Function(GoalBaseDto)? onFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -420,8 +421,8 @@ class _GoalsListItem extends StatelessWidget {
     required this.onRemove,
   });
 
-  final GoalDto goal;
-  final void Function(GoalDto item) onRemove;
+  final GoalBaseDto goal;
+  final void Function(GoalBaseDto item) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -475,13 +476,13 @@ class _GoalsListItem extends StatelessWidget {
 }
 
 class _PickGoalsBottomSheep {
-  static Future<List<GoalDto>> show(
+  static Future<List<GoalBaseDto>> show(
     BuildContext context, {
     required IGoalsRepository repository,
-    required List<GoalDto> pickedGoals,
-    bool Function(GoalDto item)? onFilter,
+    required List<GoalBaseDto> pickedGoals,
+    bool Function(GoalBaseDto item)? onFilter,
   }) async {
-    final goalsNotifier = ValueNotifier<List<GoalDto>>(pickedGoals);
+    final goalsNotifier = ValueNotifier<List<GoalBaseDto>>(pickedGoals);
     final goals = (await repository.getGoals())
         .where((goal) =>
             goal.status != GoalStatus.Done && goal.status != GoalStatus.Overdue)
@@ -517,7 +518,7 @@ class _PickGoalsBottomSheep {
                     ),
                   ),
                 ),
-                replacement: ValueListenableBuilder<List<GoalDto>>(
+                replacement: ValueListenableBuilder<List<GoalBaseDto>>(
                   valueListenable: goalsNotifier,
                   builder: (context, picked, child) {
                     return Column(
