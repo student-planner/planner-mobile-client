@@ -1,17 +1,20 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 
 import '../constants/routes_constants.dart';
 import '../repositories/tokens/tokens_repository_impl.dart';
-import 'env_helper.dart';
 import 'my_logger.dart';
 
 /// Помощник работы с Dio
 abstract class DioHelper {
+  static final _host = Platform.isAndroid ? '10.0.2.2' : '127.0.0.1';
+  static final _localBaseUrl = "https://$_host:7001/api";
   static final _tokensRepository = TokensRepositoryImpl();
 
-  static String get baseUrl => EnvHelper.mainApiUrl ?? '';
+  static String get baseUrl => _localBaseUrl;
 
   /// Получить данные
   static Future<Response> getData({
